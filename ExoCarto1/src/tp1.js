@@ -29,6 +29,7 @@ $(document).ready(function() {
   if(window.DeviceOrientationEvent) {
     window.addEventListener('deviceorientation', function(orientation) {
       var firstDiv = exercice3.find('.function1') ;
+      firstDiv.find('ul').empty() ;
       firstDiv.find('ul').append(
         "<li>Alpha : " + orientation.alpha + "</li>",
         "<li>Beta : " + orientation.beta + "</li>",
