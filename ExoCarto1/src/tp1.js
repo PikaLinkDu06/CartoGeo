@@ -1,7 +1,12 @@
+let exercice2 ;
+let exercice3 ;
+let exercice4 ;
+
 $(document).ready(function() {
 
-  let exercice2 = $('#exercice2') ;
-  let exercice3 = $('#exercice3') ;
+  exercice2 = $('#exercice2') ;
+  exercice3 = $('#exercice3') ;
+  exercice4 = $('#exercice4') ;
 
   navigator.geolocation.getCurrentPosition(function(position) {
     var firstDiv = exercice2.find('.function1') ;
@@ -53,4 +58,20 @@ $(document).ready(function() {
     });
   }
 
+  window.addEventListener('touchstart', touchEventHandler) ;
+  window.addEventListener('touchend', touchEventHandler) ;
+  window.addEventListener('touchcancel', touchEventHandler) ;
+  window.addEventListener('touchleave', touchEventHandler) ;
+  window.addEventListener('touchmove', touchEventHandler) ;
+
 }) ;
+
+function touchEventHandler(event) {
+  var firstDiv = exercice4.find('div') ;
+  firstDiv.find('ul').empty() ;
+  firstDiv.find('ul').append(
+    "<li>Position X : " + event.changedTouches[0].screenX + "</li>",
+    "<li>Position X : " + event.changedTouches[0].screenY + "</li>",
+    "<li>Type event : " + event.type + "</li>"
+  ) ;
+}
