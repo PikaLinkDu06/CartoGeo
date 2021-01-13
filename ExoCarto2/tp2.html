@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>TP2 Carto</title>
+  <link rel="stylesheet" href="./css/tp2.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+  <script type="text/javascript" src="http://maps.stamen.com/js/tile.stamen.js?v1.3.0"></script>
+  <script src="./src/tp2.js"></script>
+</head>
+<body>
+  <section id="exercice1">
+    <h1>Map sous openStreetmap : </h1>
+    <div id="mapOSM"></div>
+  </section>
+  <section id="exercice2">
+    <h1>Map sous Stamen : </h1>
+    <h2>Le triangle des Bermudes</h2>
+    <div id="mapStamenBermudes"></div>
+    <h2>Direction JUL</h2>
+    <div id="mapStamenPos"></div>
+    <p>Distance vers Marseille : <span id="Marseille"></span></p>
+  </section>
+  <section id="exercice3">
+    <h1>Aménagement cyclable de la Métropole Nice CA : </h1>
+    <div id="pisteCyclable"></div>
+  </section>
+</body>
+</html>

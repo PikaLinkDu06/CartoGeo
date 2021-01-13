@@ -1,0 +1,17 @@
+html,
+body {
+  height: 100%;
+}
+
+#mapOSM,
+#mapStamenBermudes,
+#mapStamenPos,
+#pisteCyclable {
+  margin-top: 15px;
+  margin: auto;
+  width:95%;
+  height: 400px;
+}
+section {
+  text-align: center;
+}
