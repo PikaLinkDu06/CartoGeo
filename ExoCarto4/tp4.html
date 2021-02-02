@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>TP4 Carto</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="./css/main.css">
+</head>
+<body>
+  <section>
+    <h1>Exercice 3 : Geolocalisation et ThreeJS</h1>
+    <div>
+      <canvas id="earthCanvas"></canvas>
+    </div>
+  </section>
+  <script src="https://threejs.org/build/three.js"></script>
+  <script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
+  <script src="https://threejs.org//examples/js/loaders/GLTFLoader.js"></script>
+  <script type="text/javascript">
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera( 25, 1, 0.1, 1000 );
+  camera.position.z = 6 ;
+
+  const renderer = new THREE.WebGLRenderer({ canvas: earthCanvas });
+  renderer.setSize(500, 500);
+
+  const light = new THREE.AmbientLight( 0xffffff );
+  scene.add( light );
+
+  const geometry = new THREE.SphereGeometry(1, 32, 32);
+  const texture = new THREE.TextureLoader().load( './textures/earth_texture.jpg' );
+  const materialTex = new THREE.MeshBasicMaterial( { map: texture } );
+  const earth = new THREE.Mesh( geometry, materialTex );
+
+  scene.add( earth ) ;
+
+  const controls = new THREE.OrbitControls( camera, renderer.domElement );
+
+  navigator.geolocation.getCurrentPosition(function(position) {
+    console.log(fromLatLonToCartesian(position.coords.latitude, position.coords.longitude)) ;
+    const cartesianPos = fromLatLonToCartesian(position.coords.latitude, position.coords.longitude) ;
+    const geometryMP = new THREE.SphereGeometry(0.02, 32, 32) ;
+    const materialMP = new THREE.MeshBasicMaterial( { color: 0xff0000 } ) ;
+    const myPosition = new THREE.Mesh(geometryMP, materialMP) ;
+
+    myPosition.position.x = cartesianPos.x ;
+    myPosition.position.y = cartesianPos.y ;
+    myPosition.position.z = cartesianPos.z ;
+
+    scene.add( myPosition ) ;
+  }) ;
+
+  const animate = function () {
+    requestAnimationFrame( animate );
+    renderer.render( scene, camera );
+  };
+  animate();
+
+
+
+  function fromLatLonToCartesian(lat, lon) {
+    const radius = 1 ;
+    var x = radius * Math.sin(lat) * Math.cos(lon) ;
+    var y = radius * Math.sin(lat) * Math.cos(lon) ;
+    var z = radius * Math.cos(lat) ;
+    return {
+      x: x,
+      y: y,
+      z: z
+    }
+  }
+  </script>
+</body>
+</html>
