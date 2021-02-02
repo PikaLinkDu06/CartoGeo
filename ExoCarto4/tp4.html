@@ -38,34 +38,76 @@
   const controls = new THREE.OrbitControls( camera, renderer.domElement );
 
   navigator.geolocation.getCurrentPosition(function(position) {
-    console.log(_convertLatLonToVec3(position.coords.latitude, position.coords.longitude)) ;
+
     const cartesianPos = _convertLatLonToVec3(position.coords.latitude, position.coords.longitude) ;
-    const geometryMP = new THREE.SphereGeometry(0.01, 32, 32) ;
-    const materialMP = new THREE.MeshBasicMaterial( { color: 0xff0000 } ) ;
-    const myPosition = new THREE.Mesh(geometryMP, materialMP) ;
 
-    myPosition.position.x = cartesianPos.x ;
-    myPosition.position.y = cartesianPos.y ;
-    myPosition.position.z = cartesianPos.z ;
+    const gltfLoader = new THREE.GLTFLoader();
+    gltfLoader.load('./models/Duck.gltf', function(gltf) {
+      console.log( gltf ) ;
+      var duck = gltf.scene ;
+      duck.scale.set(0.02, 0.02, 0.02) ;
+      duck.position.set( cartesianPos.x, cartesianPos.y, cartesianPos.z ) ;
+      scene.add( duck ) ;
+    },
+    function ( xhr ) {
+      console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+    },
+    // called when loading has errors
+    function ( error ) {
+      console.log( 'An error happened' );
+    }
+  ) ;
+  /*
+  console.log(_convertLatLonToVec3(position.coords.latitude, position.coords.longitude)) ;
 
-    scene.add( myPosition ) ;
-  }) ;
+  const geometryMP = new THREE.SphereGeometry(0.01, 32, 32) ;
+  const materialMP = new THREE.MeshBasicMaterial( { color: 0xff0000 } ) ;
+  const myPosition = new THREE.Mesh(geometryMP, materialMP) ;
 
-  const animate = function () {
-    requestAnimationFrame( animate );
-    renderer.render( scene, camera );
-  };
-  animate();
+  myPosition.position.x = cartesianPos.x ;
+  myPosition.position.y = cartesianPos.y ;
+  myPosition.position.z = cartesianPos.z ;
+
+  scene.add( myPosition ) ; */
+}) ;
+
+var countries = new THREE.Group();
+$.get({
+  url: 'https://restcountries.eu/rest/v2/all',
+  success: function(data) {
+    data.forEach((item, i) => {
+
+      var cartesianPosCountry = _convertLatLonToVec3(item['latlng'][0], item['latlng'][1]) ;
+      var geometryC = new THREE.SphereGeometry(0.01, 32, 32) ;
+      var textureC = new THREE.TextureLoader().load( item.flag );
+      var materialC = new THREE.MeshBasicMaterial( { map: textureC } ) ;
+      var posCountry = new THREE.Mesh(geometryC, materialC) ;
+
+      posCountry.position.x = cartesianPosCountry.x ;
+      posCountry.position.y = cartesianPosCountry.y ;
+      posCountry.position.z = cartesianPosCountry.z ;
+
+      countries.add(posCountry) ;
+    });
+  }
+}) ;
+scene.add(countries) ;
+
+const animate = function () {
+  requestAnimationFrame( animate );
+  renderer.render( scene, camera );
+};
+animate();
 
 
-  function _convertLatLonToVec3 (lat,lon) {
-              lat =  lat * Math.PI / 180.0;
-              lon = -lon * Math.PI / 180.0;
-              return new THREE.Vector3(
-                  Math.cos(lat) * Math.cos(lon), //rechts links invert
-                  Math.sin(lat),  // up down invert
-                  Math.cos(lat) * Math.sin(lon));
-          }
+function _convertLatLonToVec3 (lat,lon) {
+  lat =  lat * Math.PI / 180.0;
+  lon = -lon * Math.PI / 180.0;
+  return new THREE.Vector3(
+    Math.cos(lat) * Math.cos(lon), //rechts links invert
+    Math.sin(lat),  // up down invert
+    Math.cos(lat) * Math.sin(lon));
+  }
   </script>
 </body>
 </html>
