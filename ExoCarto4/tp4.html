@@ -38,9 +38,9 @@
   const controls = new THREE.OrbitControls( camera, renderer.domElement );
 
   navigator.geolocation.getCurrentPosition(function(position) {
-    console.log(fromLatLonToCartesian(position.coords.latitude, position.coords.longitude)) ;
-    const cartesianPos = fromLatLonToCartesian(position.coords.latitude, position.coords.longitude) ;
-    const geometryMP = new THREE.SphereGeometry(0.02, 32, 32) ;
+    console.log(_convertLatLonToVec3(position.coords.latitude, position.coords.longitude)) ;
+    const cartesianPos = _convertLatLonToVec3(position.coords.latitude, position.coords.longitude) ;
+    const geometryMP = new THREE.SphereGeometry(0.01, 32, 32) ;
     const materialMP = new THREE.MeshBasicMaterial( { color: 0xff0000 } ) ;
     const myPosition = new THREE.Mesh(geometryMP, materialMP) ;
 
@@ -58,18 +58,14 @@
   animate();
 
 
-
-  function fromLatLonToCartesian(lat, lon) {
-    const radius = 1 ;
-    var x = radius * Math.sin(lat) * Math.cos(lon) ;
-    var y = radius * Math.sin(lat) * Math.cos(lon) ;
-    var z = radius * Math.cos(lat) ;
-    return {
-      x: x,
-      y: y,
-      z: z
-    }
-  }
+  function _convertLatLonToVec3 (lat,lon) {
+              lat =  lat * Math.PI / 180.0;
+              lon = -lon * Math.PI / 180.0;
+              return new THREE.Vector3(
+                  Math.cos(lat) * Math.cos(lon), //rechts links invert
+                  Math.sin(lat),  // up down invert
+                  Math.cos(lat) * Math.sin(lon));
+          }
   </script>
 </body>
 </html>
