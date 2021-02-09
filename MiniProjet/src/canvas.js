@@ -7,24 +7,22 @@ $(document).ready(function() {
   boussole.src = './images/compass.png' ;
   aiguille.src = './images/needle.png' ;
   boussole.onload = function() {
-    ctx.drawImage(boussole, 125, 125, 125, 125) ;
+    ctx.drawImage(boussole, 25, 25) ;
   }
   aiguille.onload = function() {
-    ctx.drawImage(aiguille, 125, 125, 125, 125) ;
+    ctx.drawImage(aiguille, 25, 25) ;
   }
 
   if(window.DeviceMotionEvent) {
     window.addEventListener('devicemotion', function(orientation) {
       console.log(orientation) ;
-      if(orientation.rotationRate.alpha) {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.drawImage(boussole, 0, 0);
-        ctx.save();
-        ctx.translate(125, 125);
-        ctx.rotate(orientation.rotationRate.alpha * (Math.PI / 180));
-        ctx.drawImage(aiguille, -125, -125);
-        ctx.restore();
-      }
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(boussole, 0, 0);
+      ctx.save();
+      ctx.translate(125, 125);
+      ctx.rotate(orientation.alpha * (Math.PI / 180));
+      ctx.drawImage(aiguille, -125, -125);
+      ctx.restore();
     });
   }
 
