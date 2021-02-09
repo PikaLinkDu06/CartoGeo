@@ -16,13 +16,15 @@ $(document).ready(function() {
   if(window.DeviceMotionEvent) {
     window.addEventListener('devicemotion', function(orientation) {
       console.log(orientation) ;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.drawImage(boussole, 0, 0);
-      ctx.save();
-      ctx.translate(100, 100);
-      ctx.rotate(orientation.rotationRate.alpha * (Math.PI / 180));
-      ctx.drawImage(aiguille, -100, -100);
-      ctx.restore();
+      if(orientation.rotationRate.alpha) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(boussole, 0, 0);
+        ctx.save();
+        ctx.translate(125, 125);
+        ctx.rotate(orientation.rotationRate.alpha * (Math.PI / 180));
+        ctx.drawImage(aiguille, -125, -125);
+        ctx.restore();
+      }
     });
   }
 
