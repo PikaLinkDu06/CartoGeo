@@ -9,20 +9,18 @@ $(document).ready(function() {
 
   if(window.DeviceOrientationEvent) {
     window.addEventListener('deviceorientation', function(orientation) {
-      pointToNorth(orientation);
+      moveNeedle(orientation);
     }) ;
   }
 
-  function pointToNorth(orientation) {
-    console.log(orientation) ;
+  function moveNeedle(orientation) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(boussole, 0, 0);
+    ctx.drawImage(aiguille, 0, 0);
     ctx.save();
     ctx.translate(100, 100);
-    ctx.rotate(-orientation.alpha * (Math.PI / 180));
-    ctx.drawImage(aiguille, -100, -100);
+    ctx.rotate(orientation.alpha * (Math.PI / 180));
+    ctx.drawImage(boussole, -100, -100);
     ctx.restore();
   }
-
 
 }) ;

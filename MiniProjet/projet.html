@@ -4,17 +4,38 @@
   <meta charset="utf-8">
   <title>Projet GeoCarto</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://threejs.org/build/three.js"></script>
+  <script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
+  <script src="https://threejs.org//examples/js/loaders/GLTFLoader.js"></script>
   <link rel="stylesheet" href="./css/main.css">
 
-  <script type="text/javascript" src="./src/canvas.js"></script>
+  <script type="text/javascript" src="./src/compassCanvas.js"></script>
+  <script type="text/javascript" src="./src/compassSvg.js"></script>
+  <script type="text/javascript" src="./src/compassThreeJS.js"></script>
 </head>
 
 <body>
-  <section>
+
+  <section id="question1">
     <h1>Utilisation du canvas</h1>
     <div>
       <canvas id="compassCanvas" width="250" height="250"></canvas>
     </div>
   </section>
+
+  <section id="question2">
+    <h1>Utilisation du SVG</h1>
+    <div class="svg">
+      <img src="./images/arrow.svg" />
+    </div>
+  </section>
+
+  <section>
+    <h1>Utilisation de ThreeJS</h1>
+    <div>
+      <canvas id="threeJSCompassCanvas" ></canvas>
+    </div>
+  </section>
+
 </body>
 </html>
