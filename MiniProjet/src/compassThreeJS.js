@@ -14,7 +14,7 @@ $(document).ready(function() {
   const gltfLoader = new THREE.GLTFLoader();
   gltfLoader.load('./models/Duck.gltf', function(gltf) {
     duck = gltf.scene ;
-    // duck.rotation.set(0, (90 * (Math.PI / 180)), 0) ;
+    duck.rotation.set(0, (90 * (Math.PI / 180)), 0) ;
     scene.add( duck ) ;
   },
   function ( xhr ) {
