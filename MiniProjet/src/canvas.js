@@ -20,7 +20,7 @@ $(document).ready(function() {
       ctx.drawImage(boussole, 0, 0);
       ctx.save();
       ctx.translate(125, 125);
-      ctx.rotate(orientation.alpha * (Math.PI / 180));
+      ctx.rotate(orientation.rotationRate.alpha * (Math.PI / 180));
       ctx.drawImage(aiguille, -125, -125);
       ctx.restore();
     });
