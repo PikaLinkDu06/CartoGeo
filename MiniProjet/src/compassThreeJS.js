@@ -14,7 +14,7 @@ $(document).ready(function() {
   const gltfLoader = new THREE.GLTFLoader();
   gltfLoader.load('./models/Duck.gltf', function(gltf) {
     duck = gltf.scene ;
-    duck.rotation.set(0, (90 * (Math.PI / 180)), 0) ;
+    // duck.rotation.set(0, (90 * (Math.PI / 180)), 0) ;
     scene.add( duck ) ;
   },
   function ( xhr ) {
@@ -29,12 +29,12 @@ $(document).ready(function() {
 const controls = new THREE.OrbitControls( camera, renderer.domElement );
 
 const animate = function () {
-  
+
   requestAnimationFrame( animate );
 
   if(window.DeviceOrientationEvent) {
     window.addEventListener('deviceorientation', function(orientation) {
-      if(duck !== undefined) duck.rotation.set(0, orientation.alpha * (Math.PI / 180), 0) ; ;
+      if(duck !== undefined) duck.rotation.set(0, -orientation.alpha * (Math.PI / 180), 0) ; ;
     }) ;
   }
 
