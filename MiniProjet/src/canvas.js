@@ -8,23 +8,21 @@ $(document).ready(function() {
   aiguille.src = './images/needle.png' ;
   /*
   boussole.onload = function() {
-    ctx.drawImage(boussole, 25, 25) ;
-  }
-  aiguille.onload = function() {
-    ctx.drawImage(aiguille, 25, 25) ;
-  } */
+  ctx.drawImage(boussole, 25, 25) ;
+}
+aiguille.onload = function() {
+ctx.drawImage(aiguille, 25, 25) ;
+} */
 
-  if(window.DeviceMotionEvent) {
-    window.addEventListener('devicemotion', function(orientation) {
-      console.log(orientation) ;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.drawImage(boussole, 25, 25);
-      ctx.save();
-      ctx.translate(50, 50);
-      ctx.rotate(orientation.rotationRate.alpha * (Math.PI / 180));
-      ctx.drawImage(aiguille, -25, -25);
-      ctx.restore();
-    });
-  }
+if(window.DeviceOrientationEvent) {
+  window.addEventListener('deviceorientation', function(orientation) {
+    console.log(orientation) ;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(boussole, 25, 25);
+    ctx.save();
+    ctx.drawImage(aiguille, 25, 25);
+    ctx.rotate(orientation.alpha * (Math.PI / 180));
+  });
+}
 
 }) ;
