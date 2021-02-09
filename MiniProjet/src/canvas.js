@@ -20,8 +20,10 @@ if(window.DeviceOrientationEvent) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(boussole, 25, 25);
     ctx.save();
-    ctx.drawImage(aiguille, 25, 25);
+    ctx.translate(50, 50) ;
     ctx.rotate(orientation.alpha * (Math.PI / 180));
+    ctx.drawImage(aiguille, -25, -25);
+    ctx.restore() ;
   });
 }
 
